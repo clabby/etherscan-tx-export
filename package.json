@@ -20,5 +20,8 @@
     "inquirer": "^8.1.2",
     "lodash": "^4.17.21",
     "web3": "^1.5.0"
+  },
+  "devDependencies": {
+    "dateformat": "^4.5.1"
   }
 }

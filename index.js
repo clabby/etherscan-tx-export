@@ -4,6 +4,7 @@ const _ = require('lodash');
 const BigNumber = require('bignumber.js');
 const axios = require('axios');
 const chalk = require('chalk');
+const dateformat = require('dateformat');
 
 let totalEth = 0.0;
 
@@ -32,10 +33,12 @@ inquirer.prompt([{type: 'input', name: 'Enter Address'}]).then(async answer => {
           );
           const filePath = `${__dirname}/tx-export-${address}${isJSON ? '.json' : '.csv'}`;
 
-          // Replace all "value" fields with negative numbers for outgoing transactions
-          _.each(txs, tx =>
-            tx.value = decimate(tx.value).times(tx.from.toLowerCase() === address.toLowerCase() ? -1 : 1).toString()
-          );
+          // Replace all "value" fields with negative numbers for outgoing transactions & format date to be readable
+          _.each(txs, tx => {
+            tx.value = decimate(tx.value).times(tx.from.toLowerCase() === address.toLowerCase() ? -1 : 1).toString();
+            tx.timeStamp =
+              dateformat(new Date(parseInt(tx.timeStamp) * 1000), 'dddd, mmmm dS, yyyy h:MM:ss TT');
+          });
 
           // Remove output file if it already exists
           if (fs.existsSync(filePath)) fs.rmSync(filePath);
