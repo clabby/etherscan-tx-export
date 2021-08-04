@@ -1,6 +1,6 @@
 # Etherscan Transaction Exporter
 
-Simple CLI for exporting transaction history into a file from Etherscan.
+Simple CLI for exporting transaction history into a readable CSV/JSON file from Etherscan.
 
 ### How to use:
 
